@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2009 Robin Sonefors
+# This file is distributed under the same license as the cameron package.
+# Robin Sonefors <ozamosi@flukkost.nu> 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-03-31 23:36+0200\n"
+"PO-Revision-Date: 2009-03-30 17:44+0200\n"
+"Last-Translator: Robin Sonefors <ozamosi@flukkost.nu>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../cameron/cameron-add.c:69
+#: ../cameron/cameron-subscription-preferences.c:116
+#: ../cameron/cameron-window.c:183
+#, c-format
+msgid ""
+"Failed to load UI\n"
+"%s"
+msgstr ""
+"Kunde inte ladda användargränssnittet\n"
+"%s"
+
+#: ../cameron/cameron-cell-renderers.c:99
+msgid "%H:%M"
+msgstr "%H:%M"
+
+#: ../cameron/cameron-cell-renderers.c:105
+msgid "%a %H:%M"
+msgstr "%a %H:%M"
+
+#: ../cameron/cameron-cell-renderers.c:111
+msgid "%b %d %Y"
+msgstr "%d %b %Y"
+
+#: ../cameron/cameron-cell-renderers.c:116
+msgid "%b %d %H:%M"
+msgstr "%d %b %H:%M"
+
+#: ../cameron/cameron-download-view.c:243
+msgid "Date"
+msgstr "Datum"
+
+#: ../cameron/cameron-download-view.c:251 ../data/cameron.ui.h:2
+msgid "Name"
+msgstr "Namn"
+
+#: ../cameron/cameron-download-view.c:260
+msgid "Progress"
+msgstr "Förlopp"
+
+#: ../cameron/cameron-download-view.c:269
+msgid "Size"
+msgstr "Storlek"
+
+#: ../cameron/cameron-download-view.c:347
+msgid "Abort"
+msgstr "Avbryt"
+
+#: ../cameron/cameron-info-window.c:52
+msgid "Run"
+msgstr "Starta"
+
+#: ../cameron/cameron-main.c:49
+msgid "Select which subscription configuration file to use"
+msgstr "Välj prenumerationskonfigurationsfil att använda"
+
+#: ../cameron/cameron-main.c:49
+msgid "Disable the use of a cache file for previously downloaded items"
+msgstr "Använd inte en cache-fil för att spara tidigare nerladdningar"
+
+#: ../cameron/cameron-main.c:176
+msgid "- Broadcatching application"
+msgstr "- Broadcatchingprogram"
+
+#: ../cameron/cameron-main.c:194
+#, c-format
+msgid "Couldn't parse command line arguments: %s\n"
+msgstr "Förstod inte kommandoradsargumenten: %s\n"
+
+#: ../cameron/cameron-subscription-view.c:148
+msgid "Subscription"
+msgstr "Prenumeration"
+
+#: ../cameron/cameron-subscription-view.c:151
+msgid "All"
+msgstr "Alla"
+
+#: ../cameron/cameron-subscription-view.c:213
+msgid "Properties"
+msgstr "Egenskaper"
+
+#: ../cameron/cameron-window.c:86
+msgid "translator-credits"
+msgstr "Robin Sonefors <ozamosi@flukkost.nu>"
+
+#: ../data/cameron.ui.h:1
+msgid "<b>Update Interval</b>"
+msgstr "<b>Uppdateringsintervall</b>"
+
+#: ../data/cameron.ui.h:3
+msgid "Only update on startup"
+msgstr "Uppdatera bara vid uppstart"
+
+#: ../data/cameron.ui.h:4
+msgid "URL"
+msgstr "URL"
+
+#: ../data/cameron.ui.h:5
+msgid "URL:"
+msgstr "URL:"
+
+#: ../data/cameron.ui.h:6
+msgid "Update every"
+msgstr "Uppdatera var"
+
+#: ../data/cameron.ui.h:7
+msgid "Use feed-specific download folder"
+msgstr "Använd flödesspecifik nerladdningsmapp"
+
+#: ../data/cameron.ui.h:8
+msgid "Use global default update interval"
+msgstr "Använd standarduppdateringsintervallet"
+
+#: ../data/cameron.ui.h:9
+msgid "_File"
+msgstr "_Arkiv"
+
+#: ../data/cameron.ui.h:10
+msgid "_Help"
+msgstr "_Hjälp"
+
+#: ../data/cameron.ui.h:11
+msgid "gtk-about"
+msgstr "gtk-about"
+
+#: ../data/cameron.ui.h:12
+msgid "gtk-add"
+msgstr "gtk-add"
+
+#: ../data/cameron.ui.h:13
+msgid "gtk-apply"
+msgstr "gtk-apply"
+
+#: ../data/cameron.ui.h:14
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
+#: ../data/cameron.ui.h:15
+msgid "gtk-quit"
+msgstr "gtk-quit"
+
+#: ../data/cameron.ui.h:16
+msgid "minutes"
+msgstr "minuter"

@@ -1,0 +1,18 @@
+General Information
+===================
+
+This is Cameron version 0.1.0. Cameron is a broadcatching
+application for the GNOME desktop.
+
+Cameron is free software, released under the LGPL 2.0.
+
+The official webpage is http://wrya.net/services/trac/cameron There you can
+report bugs, get the latest development code, and read documentation.
+
+You can communicate with the developers through the mail list at 
+<summer@lists.wrya.net>. There's a web interface for it at 
+http://wrya.net/services/mailman/listinfo/summer
+
+Install
+=======
+See INSTALL

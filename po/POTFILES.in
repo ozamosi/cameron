@@ -1,0 +1,11 @@
+#List source files with translatable strings
+[encoding: UTF-8]
+cameron/cameron-add.c
+cameron/cameron-cell-renderers.c
+cameron/cameron-download-view.c
+cameron/cameron-info-window.c
+cameron/cameron-main.c
+cameron/cameron-subscription-preferences.c
+cameron/cameron-subscription-view.c
+cameron/cameron-window.c
+[type: gettext/glade]data/cameron.ui
