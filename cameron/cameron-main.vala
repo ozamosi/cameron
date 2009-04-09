@@ -61,7 +61,7 @@ namespace Cameron {
 							progress = completed / (double) length;
 						window.update_download (dl, progress);
 					};
-					dl.download_complete += (dl, path) => {
+					dl.download_complete += (dl) => {
 						window.update_download (dl, 1.0);
 					};
 					dl.start ();
