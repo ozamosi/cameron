@@ -40,9 +40,7 @@ namespace Cameron {
 		private void new_feed (string url) {
 			var feed = new Summer.Feed ();
 			feed.new_entries += (feed) => {
-				stdout.printf ("new entries\n");
 				foreach (var item in feed.get_items ()) {
-					stdout.printf ("New entry: %s\n", item.title);
 					var dl = Summer.create_download (item);
 					if (dl == null) {
 						continue;
