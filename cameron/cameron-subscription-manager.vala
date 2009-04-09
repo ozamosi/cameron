@@ -143,13 +143,13 @@ namespace Cameron {
 			filecontents = filecontents.printf (
 				string.joinv ("", subscription_elements));
 			
-			var file = File.new_for_path ("_subscriptions.xml");
+			var file = File.new_for_path (Config.subscription_file + "~");
 			{
 				var file_stream = file.replace (null, false, FileCreateFlags.NONE, null);
 				var data_stream = new DataOutputStream (file_stream);
 				data_stream.put_string (filecontents, null);
 			}
-			var real_file = File.new_for_path ("subscriptions.xml");
+			var real_file = File.new_for_path (Config.subscription_file);
 			file.move (real_file, FileCopyFlags.OVERWRITE, null, null);
 		}
 	}
