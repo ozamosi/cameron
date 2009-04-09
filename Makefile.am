@@ -9,7 +9,8 @@ EXTRA_DIST = \
 	intltool-extract.in \
 	intltool-merge.in \
 	intltool-update.in \
-	gen-changelog.py
+	gen-changelog.py \
+	vapi/config.vapi
 
 DISTCLEANFILES = \
 	intltool-extract \

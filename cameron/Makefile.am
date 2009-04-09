@@ -59,7 +59,7 @@ cameron.stamp: $(vala_sources)
 		--pkg=webkit-1.0 \
 		--pkg=libsexy \
 		--pkg=config \
-		--vapidir=../vapi \
+		--vapidir=$(srcdir)/../vapi \
 		$^
 	touch $@
 
