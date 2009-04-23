@@ -1,0 +1,24 @@
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/apps/cameron/save_dir</key>
+			<applyto>/apps/cameron/save_dir</applyto>
+			<owner>cameron</owner>
+			<type>string</type>
+			<default>null</default>
+			<locale name="C">
+				<short>Save directory</short>
+				<long>The path where Cameron will store it's completed downloads. If this is null, Cameron will use $XDG_DATA_HOME/cameron</long>
+			</locale>
+		</schema>
+		<schema>
+			<key>/schemas/apps/cameron/tmp_dir</key>
+			<applyto>/apps/cameron/tmp_dir</applyto>
+			<owner>cameron</owner>
+			<type>string</type>
+			<default>null</default>
+			<locale name="C">
+				<short>Temporary directory</short>
+				<long>The path where Cameron will store it's incomplete downloads. If this is null, Cameron will use $XDG_CACHE_HOME/cameron</long>
+			</locale>
+		</schema>
