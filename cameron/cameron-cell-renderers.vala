@@ -10,7 +10,7 @@ namespace Cameron {
 			}
 			set {
 				_date = value;
-				var timestamp = Time.gm (value);
+				var timestamp = Time.local (value);
 				var now = TimeVal ();
 				now.get_current_time ();
 				if (now.tv_sec - 43200 < value) // Twelve hours ago
