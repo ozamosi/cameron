@@ -9,9 +9,6 @@ namespace Cameron {
 		construct {
 			window = new Window ();
 
-			if (subscription_file != null)
-				Config.subscription_file = subscription_file;
-
 			subscription_manager = SubscriptionManager.instance ();
 
 			Summer.Download.set_default (Config.tmp_dir, Config.save_dir);
@@ -75,10 +72,8 @@ namespace Cameron {
 			Gtk.main_quit ();
 		}
 
-		static string subscription_file = null;
 		static bool no_cache = false;
 		static const OptionEntry[] options = {
-			{"subscriptions", 0, 0, OptionArg.STRING, out subscription_file, N_("Select which subscription configuration file to use"), null},
 			{"no-cache", 0, 0, OptionArg.NONE, out no_cache, N_("Disable the use of a cache file for previously downloaded items"), null},
 			{null}
    };

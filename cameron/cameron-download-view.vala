@@ -5,11 +5,12 @@ using Summer;
 
 namespace Cameron {
 	class DownloadView : GLib.Object {
-		public signal void selected_changed (Download dl);
+		public signal void selected_changed (DownloadProxy dl);
 		private TreeModelSort store;
 		private TreeView view;
 		private Subscription? currently_selected;
 		private Download tmp_dl;
+		private Downloads downloads_cache;
 		
 		public DownloadView (TreeView view) {
 			this.view = view;
@@ -29,7 +30,7 @@ namespace Cameron {
 				ListStore? store;
 				if (!selection.get_selected (out store, out iter))
 					return;
-				Download dl;
+				DownloadProxy dl;
 				store.get (iter, 4, out dl, -1);
 				selected_changed (dl);
 			};
@@ -37,14 +38,24 @@ namespace Cameron {
 
 		public void add (Download dl) {
 			TreeIter iter;
-			weak ListStore real_store = ((TreeModelFilter) store.get_model ()).get_model () as ListStore;
+			ListStore real_store = ((TreeModelFilter) store.get_model ()).get_model () as ListStore;
+			if (real_store.get_iter_first (out iter)) {
+				do {
+					DownloadProxy dlp;
+					real_store.get (iter, 4, out dlp, -1);
+					if (dlp.id == dl.item.get_id ()) {
+						dlp.download = dl;
+						return;
+					}
+				} while (real_store.iter_next (ref iter));
+			}
 			real_store.append (out iter);
 			real_store.set (iter,
 				0, dl.item.updated,
 				1, dl.item.title,
 				2, -1.0,
 				3, dl.downloadable.length,
-				4, dl,
+				4, new DownloadProxy (dl),
 				-1);
 		}
 
@@ -53,9 +64,9 @@ namespace Cameron {
 			TreeIter iter;
 			real_store.get_iter_first (out iter);
 			do {
-				Download row_dl;
+				DownloadProxy row_dl;
 				real_store.get (iter, 4, out row_dl, -1);
-				if (row_dl.item.get_id () == dl.item.get_id ()) {
+				if (row_dl.id == dl.item.get_id ()) {
 					real_store.set (iter, 
 						2, (float) progress,
 						-1);
@@ -76,8 +87,10 @@ namespace Cameron {
 					typeof (string), 
 					typeof (float), 
 					typeof (uint64), 
-					typeof (Download)), 
+					typeof (DownloadProxy)),
 				null));
+			downloads_cache = new Downloads (
+				((TreeModelFilter) store.get_model ()).get_model () as ListStore);
 			((TreeModelFilter) store.get_model ()).set_visible_func (filter);
 			view.set_model (store);
 
@@ -166,22 +179,30 @@ namespace Cameron {
 				return false;
 			TreeIter iter;
 			store.get_iter_from_string (out iter, path.to_string ());
-			Download dl;
-			store.get (iter, 4, out dl);
-			if (dl.completed) {
-			show_uri (null, 
-					"file://%s".printf (dl.get_save_path ()), event.time);
+			DownloadProxy dl;
+			float progress;
+			store.get (iter, 4, out dl, 2, out progress);
+			if (progress == 1.0) {
+				try {
+					show_uri (null, 
+						"file://%s".printf (dl.save_path), event.time);
+				}
+				catch (GLib.Error ex) {
+					stdout.printf (
+						"Couldn't open file: %s".printf (ex.message));
+				}
+				return true;
 			}
-			return true;
+			return false;
 		}
 
 		private bool filter (TreeModel model, TreeIter iter) {
 			if (currently_selected == null)
 				return true;
-			Download? dl;
+			DownloadProxy? dl;
 			ListStore real_store = model as ListStore;
 			real_store.get (iter, 4, out dl, -1);
-			if (dl != null && dl.item.feed.url == currently_selected.url)
+			if (dl != null && dl.feed_url == currently_selected.url)
 				return true;
 			return false;
 		}

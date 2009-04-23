@@ -10,7 +10,7 @@ namespace Cameron {
 		private Gtk.Window window;
 		private SubscriptionView subscriptions;
 		private DownloadView downloads;
-		private DownloadWidget info_window;
+		private InfoWindow info_window;
 
 		public Window () {
 			try {
@@ -32,7 +32,7 @@ namespace Cameron {
 				};
 
 				var paned = builder.get_object ("main_vertical") as Paned;
-				info_window = new DownloadWidget ();
+				info_window = new InfoWindow ();
 				paned.add2 (info_window);
 
 				var about = builder.get_object ("about") as Action;

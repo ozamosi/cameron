@@ -37,5 +37,14 @@ namespace Cameron {
 			}
 			changed ();
 		}
+
+		public string to_xml () {
+			return "\t<subscription>\n" +
+				"\t\t<name>%s</name>\n".printf (Markup.escape_text (name)) +
+				"\t\t<url>%s</url>\n".printf (Markup.escape_text (url)) +
+				"\t\t<save_dir>%s</save_dir>\n".printf (
+					has_save_dir ? Markup.escape_text (save_dir) : "") +
+				"\t</subscription>\n";
+		}
 	}
 }

@@ -30,6 +30,8 @@ vala_sources = \
 	cameron-add.vala \
 	cameron-cell-renderers.vala \
 	cameron-config.vala \
+	cameron-downloads.vala \
+	cameron-download-proxy.vala \
 	cameron-download-view.vala \
 	cameron-info-window.vala \
 	cameron-main.vala \

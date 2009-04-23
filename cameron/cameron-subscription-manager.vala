@@ -10,11 +10,11 @@ namespace Cameron {
 		public signal void subscription_deleted (Subscription subscription);
 		public signal void subscription_changed (Subscription subscription);
 	
-		bool is_subscriptions;
-		bool is_subscription;
-		bool is_name;
-		bool is_url;
-		bool is_save_dir;
+		bool is_subscriptions = false;
+		bool is_subscription = false;
+		bool is_name = false;
+		bool is_url = false;
+		bool is_save_dir = false;
 		string name = null;
 		string url = null;
 		string save_dir = null;
@@ -37,11 +37,11 @@ namespace Cameron {
 
 			string config_contents;
 			try {
-				GLib.FileUtils.get_contents (
+				FileUtils.get_contents (
 					Config.subscription_file,
 					out config_contents);
 
-				GLib.MarkupParser markupParser = {
+				MarkupParser markupParser = {
 					(context, element_name, attribute_names, 
 							attribute_values) => {
 						if (element_name == "subscriptions")
@@ -88,10 +88,11 @@ namespace Cameron {
 					null
 				};
 
-				GLib.MarkupParseContext parser = new GLib.MarkupParseContext (
-					markupParser, GLib.MarkupParseFlags.TREAT_CDATA_AS_TEXT, 
-					this, null
-				);
+				MarkupParseContext parser = new MarkupParseContext (
+					markupParser,
+					MarkupParseFlags.TREAT_CDATA_AS_TEXT, 
+					this,
+					null);
 
 				try {
 					parser.parse (config_contents, config_contents.length);
@@ -130,15 +131,7 @@ namespace Cameron {
 			string filecontents = "<subscriptions>\n%s</subscriptions>\n";
 			string[] subscription_elements = new string[subscriptions.size];
 			for (int i = 0; i < subscriptions.size; i++) {
-				subscription_elements[i] = 
-					("\t<subscription>\n" +
-					"\t\t<name>%s</name>\n" +
-					"\t\t<url>%s</url>\n" +
-					"\t\t<save_dir>%s</save_dir>\n" +
-					"\t</subscription>\n").printf (
-						Markup.escape_text (subscriptions[i].name),
-						Markup.escape_text (subscriptions[i].url),
-						subscriptions[i].has_save_dir ? Markup.escape_text (subscriptions[i].save_dir) : "");
+				subscription_elements[i] = subscriptions[i].to_xml ();
 			}
 			filecontents = filecontents.printf (
 				string.joinv ("", subscription_elements));
