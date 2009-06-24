@@ -56,6 +56,8 @@ namespace Cameron {
 				2, -1.0,
 				3, dl.downloadable.length,
 				4, new DownloadProxy (dl),
+				5, dl.state,
+				6, dl.paused,
 				-1);
 		}
 
@@ -67,8 +69,13 @@ namespace Cameron {
 				DownloadProxy row_dl;
 				real_store.get (iter, 4, out row_dl, -1);
 				if (row_dl.id == dl.item.get_id ()) {
-					real_store.set (iter, 
-						2, (float) progress,
+					if (progress != -1.0)
+						real_store.set (iter,
+							2, (float) progress,
+							-1);
+					real_store.set (iter,
+						5, dl.state,
+						6, dl.paused,
 						-1);
 					break;
 				}
@@ -82,12 +89,14 @@ namespace Cameron {
 
 		private void setup () {
 			store = new TreeModelSort.with_model (new TreeModelFilter (
-				new ListStore (5,
+				new ListStore (7,
 					typeof (long), 
 					typeof (string), 
 					typeof (float), 
 					typeof (uint64), 
-					typeof (DownloadProxy)),
+					typeof (DownloadProxy),
+					typeof (DownloadState),
+					typeof (bool)),
 				null));
 			downloads_cache = new Downloads (
 				((TreeModelFilter) store.get_model ()).get_model () as ListStore);
@@ -103,6 +112,7 @@ namespace Cameron {
 			column.expand = false;
 			column.min_width = 5;
 			view.insert_column (column, -1);
+
 			column = new TreeViewColumn.with_attributes (
 				_("Name"), new CellRendererText (), 
 				"text", 1, 
@@ -112,6 +122,7 @@ namespace Cameron {
 			column.expand = true;
 			column.min_width = 5;
 			view.insert_column (column, -1);
+
 			column = new TreeViewColumn.with_attributes (
 				_("Progress"), new PercentRenderer (), 
 				"percent", 2, 
@@ -121,11 +132,42 @@ namespace Cameron {
 			column.expand = false;
 			column.min_width = 5;
 			view.insert_column (column, -1);
+
 			column = new TreeViewColumn.with_attributes (
 				_("Size"), new SizeRenderer (),
 				"size", 3,
 				null);
 			column.set_sort_column_id (3);
+			column.resizable = true;
+			column.expand = false;
+			column.min_width = 5;
+			view.insert_column (column, -1);
+
+			column = new TreeViewColumn.with_attributes (
+				_("State"), new StateRenderer (),
+				"state", 5,
+				null);
+			column.set_sort_column_id (5);
+			column.resizable = true;
+			column.expand = false;
+			column.min_width = 5;
+			view.insert_column (column, -1);
+		
+			var renderer = new CellRendererToggle ();
+			renderer.toggled += (renderer, path) => {
+				TreeIter iter;
+				store.get_iter_from_string (out iter, path);
+				DownloadProxy dl;
+				store.get (iter, 4, out dl);
+				dl.download.paused = !dl.download.paused;
+				update (dl.download, -1.0);
+			};
+
+			column = new TreeViewColumn.with_attributes (
+				_("Paused"), renderer,
+				"active", 6,
+				null);
+			column.set_sort_column_id (6);
 			column.resizable = true;
 			column.expand = false;
 			column.min_width = 5;

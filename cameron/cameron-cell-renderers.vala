@@ -1,5 +1,6 @@
 using GLib;
 using Gtk;
+using Summer;
 
 namespace Cameron {
 	class DateRenderer : CellRendererText {
@@ -67,6 +68,29 @@ namespace Cameron {
 					i++;
 				}
 				text = "%.2f %s".printf (v, prefixes[i]);
+			}
+		}
+	}
+
+	class StateRenderer : CellRendererText {
+		private DownloadState _state;
+		public DownloadState state {
+			get {
+				return _state;
+			}
+			set {
+				_state = value;
+				if (value == DownloadState.DOWNLOADING) {
+					text = _("Downloading");
+				} else if (value == DownloadState.SEEDING) {
+					text = _("Seeding");
+				} else if (value == DownloadState.DONE) {
+					text = _("Finished");
+				} else if (value == DownloadState.FAILED) {
+					text = _("Failed");
+				} else {
+					text = _("Unknown");
+				}
 			}
 		}
 	}

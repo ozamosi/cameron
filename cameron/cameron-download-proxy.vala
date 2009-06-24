@@ -3,7 +3,7 @@ using GLib;
 
 namespace Cameron {
 	class DownloadProxy : GLib.Object {
-		public Download? download {private get; set;}
+		public Download? download;
 		private string? _id;
 		private string? _save_path;
 		private string? _feed_url;
