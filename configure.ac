@@ -39,7 +39,6 @@ GLIB_REQUIRED=2.18.0
 SUMMER_REQUIRED=0.2.0
 GTK_REQUIRED=2.14
 GEE_REQUIRED=0.1.0
-GCONF_REQUIRED=2.0
 WEBKIT_REQUIRED=1.0
 SEXY_REQUIRED=0.1
 
@@ -47,9 +46,9 @@ PKG_CHECK_MODULES(VALA, vala-1.0 >= $VALA_REQUIRED)
 PKG_CHECK_MODULES(SUMMER, libsummer-1.0 >= $SUMMER_REQUIRED)
 PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED)
 PKG_CHECK_MODULES(GEE, gee-1.0 >= $GEE_REQUIRED)
-PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED)
 PKG_CHECK_MODULES(WEBKIT, webkit-1.0 >= $WEBKIT_REQUIRED)
 PKG_CHECK_MODULES(LIBSEXY, libsexy >= $SEXY_REQUIRED)
+AM_GCONF_SOURCE_2
 AM_PATH_GLIB_2_0($GLIB_REQUIRED,,,gobject)
 if test "$GLIB_LIBS" = ""; then
 	AC_MSG_ERROR(GLIB $GLIB_REQUIRED or later is required to build libsummer)
@@ -62,38 +61,6 @@ if test "x$VALAC" = "xno"; then
 fi
 VAPIDIR=`pkg-config --variable=vapidir vala-1.0`
 AC_SUBST(VAPIDIR)
-
-AC_CHECK_FILE("${VAPIDIR}/libsummer-1.0.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for libsummer")])
-
-AC_CHECK_FILE("${VAPIDIR}/gtk+-2.0.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for gkt+")])
-
-AC_CHECK_FILE("${VAPIDIR}/glib-2.0.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for glib")])
-
-AC_CHECK_FILE("${VAPIDIR}/libxml-2.0.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for libxml")])
-
-AC_CHECK_FILE("${VAPIDIR}/gee-1.0.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for libgee")])
-
-AC_CHECK_FILE("${VAPIDIR}/gconf-2.0.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for gconf")])
-
-AC_CHECK_FILE("${VAPIDIR}/webkit-1.0.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for webkit")])
-
-AC_CHECK_FILE("${VAPIDIR}/libsexy.vapi",
-	true,
-	[AC_MSG_ERROR("Unable to find vala bindings for libsexy")])
 
 AC_CONFIG_FILES([ README
 	po/Makefile.in
