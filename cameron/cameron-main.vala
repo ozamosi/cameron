@@ -18,15 +18,10 @@ namespace Cameron {
 				Summer.Feed.set_default (Config.get_cache_dir (), 900);
 
 			foreach (var subscription in subscription_manager.subscriptions) {
-				window.add_subscription (subscription);
 				new_feed (subscription.url);
 			}
 			subscription_manager.subscription_added += (subscr_man, subscr) => {
-				window.add_subscription (subscr);
 				new_feed (subscr.url);
-			};
-			subscription_manager.subscription_changed += (subscr_man, subscr) => {
-				window.update_subscription (subscr);
 			};
 		}
 

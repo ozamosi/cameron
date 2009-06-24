@@ -23,28 +23,51 @@ namespace Cameron {
 				store.get (iter, 1, out subscr, -1);
 				selected_changed (subscr);
 			};
-		}
 
-		public void add (Subscription subscription) {
-			TreeIter iter;
-			store.append (out iter);
-			store.set (iter, 
-				0, subscription.name, 
-				1, subscription, 
-				-1);
-		}
+			SubscriptionManager sm = SubscriptionManager.instance ();
+			foreach (var subscription in sm.subscriptions) {
+				TreeIter iter;
+				store.append (out iter);
+				store.set (iter, 
+					0, subscription.name, 
+					1, subscription, 
+					-1);
+			}
 
-		public void update (Subscription subscription) {
-			TreeIter iter;
-			store.get_iter_first (out iter);
-			do {
-				Subscription s;
-				store.get (iter, 1, out s, -1);
-				if (s == subscription) {
-					store.set (iter, 0, s.name);
-					break;
-				}
-			} while (store.iter_next (ref iter));
+			sm.subscription_added += (sm, subscription) => {
+				TreeIter iter;
+				store.append (out iter);
+				store.set (iter, 
+					0, subscription.name, 
+					1, subscription, 
+					-1);
+			};
+
+			sm.subscription_changed += (sm, subscription)  => {
+				TreeIter iter;
+				store.get_iter_first (out iter);
+				do {
+					Subscription s;
+					store.get (iter, 1, out s, -1);
+					if (s == subscription) {
+						store.set (iter, 0, s.name);
+						break;
+					}
+				} while (store.iter_next (ref iter));
+			};
+
+			sm.subscription_deleted += (sm, subscription) => {
+				TreeIter iter;
+				store.get_iter_first (out iter);
+				do {
+					Subscription s;
+					store.get (iter, 1, out s, -1);
+					if (s == subscription) {
+						store.remove (iter);
+						break;
+					}
+				} while (store.iter_next (ref iter));
+			};
 		}
 
 		private void setup () {
@@ -79,6 +102,14 @@ namespace Cameron {
 				item.activate += (item) => {
 					var subscr_prefs = new SubscriptionPreferences (tmp_subscr);
 					subscr_prefs.run ();
+					tmp_subscr = null;
+				};
+				menu.append (item);
+
+				item = new MenuItem.with_label (_("Remove"));
+				item.activate += (item) => {
+					SubscriptionManager sm = SubscriptionManager.instance ();
+					sm.remove_subscription (tmp_subscr);
 					tmp_subscr = null;
 				};
 				menu.append (item);

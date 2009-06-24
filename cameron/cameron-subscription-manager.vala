@@ -127,6 +127,11 @@ namespace Cameron {
 			subscription_added (subscr);
 		}
 
+		public void remove_subscription (Subscription subscr) {
+			subscriptions.remove (subscr);
+			subscription_deleted (subscr);
+		}
+
 		public void save_subscriptions () {
 			string filecontents = "<subscriptions>\n%s</subscriptions>\n";
 			string[] subscription_elements = new string[subscriptions.size];

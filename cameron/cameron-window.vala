@@ -66,14 +66,6 @@ namespace Cameron {
 			window.show_all ();
 		}
 
-		public void add_subscription (Subscription subscription) {
-			subscriptions.add (subscription);
-		}
-
-		public void update_subscription (Subscription subscription) {
-			subscriptions.update (subscription);
-		}
-		
 		public void add_download (Download dl) {
 			downloads.add (dl);
 		}
