@@ -31,11 +31,11 @@ namespace Cameron {
 					info_window.set_download (dl);
 				};
 
-				var paned = builder.get_object ("main_vertical") as Paned;
+				var container = builder.get_object ("info_widget_scrolled") as ScrolledWindow;
 				info_window = new InfoWindow ();
-				paned.add2 (info_window);
+				container.add_with_viewport (info_window);
 
-				var about = builder.get_object ("about") as Action;
+				var about = builder.get_object ("about") as MenuItem;
 				about.activate += (action) => {
 					var dialog = new AboutDialog ();
 					dialog.program_name = "Cameron";
@@ -47,7 +47,7 @@ namespace Cameron {
 					dialog.destroy ();
 				};
 
-				var add = builder.get_object ("add") as Action;
+				var add = builder.get_object ("add") as MenuItem;
 				add.activate += (action) => {
 					var dialog = new Add ();
 					dialog.run ();
