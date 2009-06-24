@@ -11,11 +11,11 @@ namespace Cameron {
 
 			subscription_manager = SubscriptionManager.instance ();
 
-			Summer.Download.set_default (Config.tmp_dir, Config.save_dir);
+			Summer.Download.set_default (Config.get_tmp_dir (), Config.get_save_dir ());
 			if (no_cache)
 				Summer.Feed.set_default (null, 900);
 			else
-				Summer.Feed.set_default (Config.cache_dir, 900);
+				Summer.Feed.set_default (Config.get_cache_dir (), 900);
 
 			foreach (var subscription in subscription_manager.subscriptions) {
 				window.add_subscription (subscription);

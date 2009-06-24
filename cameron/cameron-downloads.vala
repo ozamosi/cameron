@@ -31,7 +31,7 @@ namespace Cameron {
 			string downloads_contents;
 			try {
 				FileUtils.get_contents (
-					Config.downloads_file,
+					Config.get_downloads_file (),
 					out downloads_contents);
 				MarkupParser markupParser = {
 					(context, element_name, attribute_names, 
@@ -185,13 +185,13 @@ namespace Cameron {
 
 			builder.prepend ("<items>\n");
 			builder.append ("</items>\n");
-			var file = File.new_for_path (Config.downloads_file + "~");
+			var file = File.new_for_path (Config.get_downloads_file () + "~");
 			{
 				var file_stream = file.replace (null, false, FileCreateFlags.NONE, null);
 				var data_stream = new DataOutputStream (file_stream);
 				data_stream.put_string (builder.str, null);
 			}
-			var real_file = File.new_for_path (Config.downloads_file);
+			var real_file = File.new_for_path (Config.get_downloads_file ());
 			file.move (real_file, FileCopyFlags.OVERWRITE, null, null);
 		}
 	}

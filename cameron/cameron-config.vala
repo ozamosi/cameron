@@ -3,76 +3,98 @@ using GConf;
 
 namespace Cameron {
 	public class Config {
-		private static string _subscription_file;
-		public static string subscription_file {
-			get {
-				_subscription_file = Path.build_filename (
+		private static string subscription_file;
+		public static string get_subscription_file () {
+			if (subscription_file == null)
+				subscription_file = Path.build_filename (
 					Environment.get_user_config_dir (),
 					"cameron",
 					"subscriptions.xml");
-				return _subscription_file;
-			}
+
+			return subscription_file;
 		}
 
-		private static string _downloads_file;
-		public static string downloads_file {
-			get {
-				_downloads_file = Path.build_filename (
+		private static string downloads_file;
+
+		public static string get_downloads_file () {
+			if (downloads_file == null)
+				downloads_file = Path.build_filename (
 					Environment.get_user_cache_dir (),
 					"cameron",
 					"downloads.xml");
-				return _downloads_file;
-			}
+			return downloads_file;
 		}
 
-		private static string _save_dir;
-		public static string save_dir {
-			get {
-				var gc = Client.get_default ();
-				var root = "/apps/cameron/";
-				_save_dir = gc.get_string (root + "save_dir");
-				if (_save_dir == null) {
-					_save_dir = Path.build_filename (
-						Environment.get_user_data_dir (),
-						"cameron");
-				}
-				return _save_dir;
+		public static string get_save_dir () {
+			var gc = Client.get_default ();
+			var root = "/apps/cameron/";
+			string save_dir;
+			try {
+				save_dir = gc.get_string (root + "save_dir");
+			} catch (GLib.Error e) {
+				save_dir = null;
 			}
-			set {
-				var gc = Client.get_default ();
-				var root = "/apps/cameron/";
-				gc.set_string (root + "save_dir", value);
+			if (save_dir == null) {
+				save_dir = Path.build_filename (
+					Environment.get_user_data_dir (),
+					"cameron");
 			}
+			return save_dir;
 		}
-	
-		private static string _cache_dir;
-		public static string cache_dir {
-			get {
-				_cache_dir = Path.build_filename (
+
+		public static void set_save_dir (string dir) {
+			var gc = Client.get_default ();
+			var root = "/apps/cameron/";
+			try {
+				gc.set_string (root + "save_dir", dir);
+			} catch (GLib.Error e) {}
+		}
+		public static string get_cache_dir () {
+			var gc = Client.get_default ();
+			var root = "/apps/cameron/";
+			string cache_dir;
+			try {
+				cache_dir = gc.get_string (root + "cache_dir");
+			} catch (GLib.Error e) {
+				cache_dir = null;
+			}
+			if (cache_dir == null) {
+				cache_dir = Path.build_filename (
 					Environment.get_user_cache_dir (),
 					"cameron");
-				return _cache_dir;
 			}
+			return cache_dir;
+		}
+		public static void set_cache_dir (string dir) {
+			var gc = Client.get_default ();
+			var root = "/apps/cameron/";
+			try {
+				gc.set_string (root + "cache_dir", dir);
+			} catch (GLib.Error e) {}
 		}
 
-		private static string _tmp_dir;
-		public static string tmp_dir {
-			get {
-				var gc = Client.get_default ();
-				var root = "/apps/cameron/";
-				_tmp_dir = gc.get_string (root + "tmp_dir");
-				if (_tmp_dir == null) {
-					_tmp_dir = Path.build_filename (
-						Environment.get_user_cache_dir (),
-						"cameron");
-				}
-				return _tmp_dir;
+		public static string get_tmp_dir () {
+			var gc = Client.get_default ();
+			var root = "/apps/cameron/";
+			string tmp_dir;
+			try {
+				tmp_dir = gc.get_string (root + "tmp_dir");
+			} catch (GLib.Error e) {
+				tmp_dir = null;
 			}
-			set {
-				var gc = Client.get_default ();
-				var root = "/apps/cameron/";
-				gc.set_string (root + "tmp_dir", value);
+			if (tmp_dir == null) {
+				tmp_dir = Path.build_filename (
+					Environment.get_user_cache_dir (),
+					"cameron");
 			}
+			return tmp_dir;
+		}
+		public static void set_tmp_dir (string dir) {
+			var gc = Client.get_default ();
+			var root = "/apps/cameron/";
+			try {
+				gc.set_string (root + "tmp_dir", dir);
+			} catch (GLib.Error e) {}
 		}
 	}
 }

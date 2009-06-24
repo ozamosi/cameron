@@ -17,7 +17,7 @@ namespace Cameron {
 				this.name = name;
 			if (save_dir == null || save_dir == "") {
 				this.save_dir = GLib.Path.build_filename (
-					Config.save_dir, name);
+					Config.get_save_dir (), name);
 				has_save_dir = false;
 			} else {
 				this.save_dir = save_dir;
@@ -29,7 +29,7 @@ namespace Cameron {
 			this.name = name;
 			if (save_dir == null || save_dir == "") {
 				this.save_dir = GLib.Path.build_filename (
-					Config.save_dir, name);
+					Config.get_save_dir (), name);
 				has_save_dir = false;
 			} else {
 				this.save_dir = save_dir;

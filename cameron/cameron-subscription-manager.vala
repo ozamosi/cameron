@@ -38,7 +38,7 @@ namespace Cameron {
 			string config_contents;
 			try {
 				FileUtils.get_contents (
-					Config.subscription_file,
+					Config.get_subscription_file (),
 					out config_contents);
 
 				MarkupParser markupParser = {
@@ -136,13 +136,13 @@ namespace Cameron {
 			filecontents = filecontents.printf (
 				string.joinv ("", subscription_elements));
 			
-			var file = File.new_for_path (Config.subscription_file + "~");
+			var file = File.new_for_path (Config.get_subscription_file () + "~");
 			{
 				var file_stream = file.replace (null, false, FileCreateFlags.NONE, null);
 				var data_stream = new DataOutputStream (file_stream);
 				data_stream.put_string (filecontents, null);
 			}
-			var real_file = File.new_for_path (Config.subscription_file);
+			var real_file = File.new_for_path (Config.get_subscription_file ());
 			file.move (real_file, FileCopyFlags.OVERWRITE, null, null);
 		}
 	}
