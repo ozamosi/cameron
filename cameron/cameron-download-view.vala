@@ -9,7 +9,7 @@ namespace Cameron {
 		private TreeModelSort store;
 		private TreeView view;
 		private Subscription? currently_selected;
-		private Download tmp_dl;
+		private DownloadProxy tmp_dl;
 		private Downloads downloads_cache;
 		
 		public DownloadView (TreeView view) {
@@ -154,7 +154,7 @@ namespace Cameron {
 				TreeIter it;
 				real_store.get_iter_first (out it);
 				do {
-					Download dl;
+					DownloadProxy dl;
 					real_store.get (it, 4, out dl, -1);
 					if (dl == tmp_dl) {
 						real_store.remove (it);
